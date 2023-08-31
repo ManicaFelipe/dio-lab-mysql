@@ -1,0 +1,188 @@
+++ INSERTS
+
+-- inserção de dados e queries
+use ecommerce;
+show tables;
+
+-- Inserir dados na tabela PESSOA
+INSERT INTO PESSOA (NOME, SOBRENOME, E-MAIL, TIPO) VALUES
+('João', 'Silva', 'joao@example.com', 'F'),
+('Maria', 'Santos', 'maria@example.com', 'F'),
+('Empresa A', 'Ltda', 'empresa@example.com', 'J');
+
+-- Inserir dados na tabela FORNECEDOR
+INSERT INTO FORNECEDOR (ID_PESSOA, DATA_CADASTRO, OBSERVACAO) VALUES
+(1, '2023-08-31', 'Fornecedor de produtos eletrônicos'),
+(3, '2023-08-31', 'Fornecedor de materiais de escritório');
+
+-- Inserir dados na tabela PRODUTO
+INSERT INTO PRODUTO (ID, CATEGORIA, DESCRICAO, PRECO, FRETE) VALUES
+(1, 'Eletrônicos', 'Smartphone', 1000, 'Frete grátis'),
+(2, 'Papelaria', 'Caneta', 2, 'Frete a calcular');
+
+-- Inserir dados na tabela PRODUTO_POR_FORNECEDOR
+INSERT INTO PRODUTO_POR_FORNECEDOR (ID_PRODUTO, ID_FORNECEDOR, QUANTIDADE) VALUES
+(1, 1, 50),
+(2, 1, 200),
+(2, 2, 500);
+
+-- Inserir dados na tabela ESTOQUE
+INSERT INTO ESTOQUE (ID, LOCAL) VALUES
+(1, 'Depósito A'),
+(2, 'Depósito B');
+
+-- Inserir dados na tabela CLIENTE
+INSERT INTO CLIENTE (ID_PESSOA, DATA_CADASTRO, OBSERVACAO) VALUES
+(2, '2023-08-31', 'Cliente fiel'),
+(3, '2023-08-31', 'Cliente corporativo');
+
+-- Inserir dados na tabela ST_PEDIDO
+INSERT INTO ST_PEDIDO (NOME) VALUES
+('Aguardando Pagamento'),
+('Pagamento Confirmado'),
+('Em Trânsito'),
+('Entregue');
+
+-- Inserir dados na tabela PEDIDO
+INSERT INTO PEDIDO (CLIENTE_ID, ID_ST_PEDIDO, OBSERVACAO, TOTAL) VALUES
+(2, 1, 'Pedido de Maria', 50.00),
+(3, 2, 'Pedido da Empresa A', 1000.00);
+
+-- Inserir dados na tabela PRODUTO_PEDIDO
+INSERT INTO PRODUTO_PEDIDO (ID_PRODUTO, ID_PEDIDO, QUANTIDADE) VALUES
+(2, 1, 10),
+(1, 2, 2);
+
+-- Inserir dados na tabela TRANSPORTADORA
+INSERT INTO TRANSPORTADORA (ID_PESSOA, DATA_CADASTRO, OBSERVACAO) VALUES
+(3, '2023-08-31', 'Transportadora confiável');
+
+-- Inserir dados na tabela VENDEDOR_TERCEIRO
+INSERT INTO VENDEDOR_TERCEIRO (ID_PESSOA, DATA_CADASTRO, OBSERVACAO) VALUES
+(1, '2023-08-31', 'Vendedor externo');
+
+-- Inserir dados na tabela PRODUTO_POR_VEND_TERCEIRO
+INSERT INTO PRODUTO_POR_VEND_TERCEIRO (ID_VENDEDOR_TERCEIRO, ID_PRODUTO, PRODUTO_VENDEDOR, QUANTIDADE) VALUES
+(1, 1, 'Smartphone Premium', 5);
+
+-- Inserir dados na tabela PESSOA_FISICA
+INSERT INTO PESSOA_FISICA (ID_PESSOA, CPF, DATA_NASCIMENTO) VALUES
+(1, '12345678901', '1980-01-15');
+
+-- Inserir dados na tabela PESSOA_JURIDICA
+INSERT INTO PESSOA_JURIDICA (ID_PESSOA, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, DATA_CONSTITUICAO, DATA_CADASTRO) VALUES
+(3, 'Empresinha', 'Empresa A Ltda', '12345678901234', '2000-05-10', '2000-05-10');
+
+-- Inserir dados na tabela PESSOA_ENDERECO
+INSERT INTO PESSOA_ENDERECO (ID_PESSOA, LOGRADOURO, NUMERO, BAIRRO, CEP, CIDADE, UF, PAIS, ENTREGA) VALUES
+(1, 'Rua das Flores', '123', 'Centro', '12345-678', 'Cidade A', 'AB', 'Brasil', 'S'),
+(2, 'Avenida Principal', '456', 'Bairro Novo', '98765-432', 'Cidade B', 'CD', 'Brasil', 'S');
+
+-- Inserir dados na tabela PESSOA_TELEFONE
+INSERT INTO PESSOA_TELEFONE (ID_PESSOA, TIPO, DDD_NUMERO) VALUES
+(1, 'Cel', '11 98765-4321'),
+(2, 'Tel', '21 2345-6789');
+
+-- Inserir dados na tabela COLABORADOR
+INSERT INTO COLABORADOR (ID_PESSOA, ID_DEPARTAMENTO, ID_CARGO, DATA_ADMISSAO, CTPS, OBSERVACAO) VALUES
+(1, 1, 1, '2020-01-15', '123456', 'Vendedor experiente'),
+(2, 2, 2, '2019-05-01', '654321', 'Assistente administrativo');
+
+-- Inserir dados na tabela ENTREGA
+INSERT INTO ENTREGA (ID_PEDIDO, ID_TRANSPORTADORA, COD_RASTREIO, STATUS) VALUES
+(1, 1, 'ABC123', 'Em trânsito'),
+(2, 1, 'XYZ789', 'Aguardando retirada');
+
+-- Inserir dados na tabela ST_PAGAMENTO
+INSERT INTO ST_PAGAMENTO (SITUACAO) VALUES
+('Pendente'),
+('Pago'),
+('Cancelado');
+
+-- Inserir dados na tabela PAGAMENTO
+INSERT INTO PAGAMENTO (ID_PEDIDO, ST_PAGAMENTO_ID) VALUES
+(1, 1),
+(2, 2);
+
+-- Inserir dados na tabela TIPO_PAGAMENTO
+INSERT INTO TIPO_PAGAMENTO (ID_PAGAMENTO, BOLETO, PIX, DEBITO, CREDITO, DINHEIRO) VALUES
+(1, 1, 0, 0, 1, 0),
+(2, 0, 1, 1, 0, 0);
+
+-- Inserir dados na tabela CARTAO
+INSERT INTO CARTAO (TIPO, TIPO_PAG_ID) VALUES
+('C', 1),
+('D', 2);
+
+-- Inserir dados na tabela DEBITO
+INSERT INTO DEBITO (CARTAO_ID, NUM_CONTA, AGENCIA) VALUES
+(2, '12345678901', '001');
+
+-- Inserir dados na tabela CREDITO
+INSERT INTO CREDITO (CARTAO_ID, NUM_CARTAO, DATA_VENCIMENTO) VALUES
+(1, '1111222233334444', '2025-12-31');
+
+-- Inserir dados na tabela PAGAMENTO_DINHEIRO
+INSERT INTO PAGAMENTO_DINHEIRO (PAGAMENTO_ID) VALUES
+(2);
+
+++ QUERYS
+
+-- Listar todas as pessoas (clientes, fornecedores, colaboradores, etc.)
+SELECT * FROM PESSOA;
+
+-- Listar todos os produtos disponíveis por fornecedor
+SELECT F.NOME, P.DESCRICAO, PP.QTD_DISPONIVEL
+FROM FORNECEDOR F
+JOIN PRODUTO_POR_FORNECEDOR PP ON F.ID = PP.ID_FORNECEDOR
+JOIN PRODUTO P ON PP.ID_PRODUTO = P.ID;
+
+-- Listar todos os pedidos com detalhes de produtos e clientes
+SELECT C.NOME AS CLIENTE, P.DESCRICAO AS PRODUTO, PP.QUANTIDADE, PD.TOTAL
+FROM PEDIDO PD
+JOIN CLIENTE C ON PD.CLIENTE_ID = C.ID
+JOIN PRODUTO_PEDIDO PP ON PD.ID = PP.ID_PEDIDO
+JOIN PRODUTO P ON PP.ID_PRODUTO = P.ID;
+
+-- Listar todas as entregas pendentes e sua situação
+SELECT E.COD_RASTREIO, P.NOME AS TRANSPORTADORA, EP.NOME AS STATUS_ENTREGA
+FROM ENTREGA E
+JOIN TRANSPORTADORA P ON E.ID_TRANSPORTADORA = P.ID
+JOIN ST_PEDIDO EP ON E.ID_ST_ENTREGA = EP.ID;
+
+-- Listar os colaboradores e seus departamentos
+SELECT COL.NOME AS COLABORADOR, DEP.NOME AS DEPARTAMENTO
+FROM COLABORADOR COL
+JOIN DEPARTAMENTO DEP ON COL.ID_DEPARTAMENTO = DEP.ID;
+
+-- Listar os tipos de pagamento e os pedidos associados a eles
+SELECT TP.TIPO, COUNT(PG.ID_PEDIDO) AS NUM_PEDIDOS
+FROM TIPO_PAGAMENTO TP
+LEFT JOIN PAGAMENTO PG ON TP.ID_PAGAMENTO = PG.ST_PAGAMENTO_ID
+GROUP BY TP.TIPO;
+
+-- Listar as informações de uma pessoa e seus respectivos endereços
+SELECT P.NOME, PE.LOGRADOURO, PE.CIDADE, PE.UF
+FROM PESSOA P
+JOIN PESSOA_ENDERECO PE ON P.ID = PE.ID_PESSOA
+WHERE P.ID = 1;
+
+-- Listar os produtos vendidos por um vendedor terceirizado específico
+SELECT V.NOME AS VENDEDOR, P.DESCRICAO AS PRODUTO, PVT.PRODUTO_VENDEDOR, PVT.QUANTIDADE
+FROM VENDEDOR_TERCEIRO V
+JOIN PRODUTO_POR_VEND_TERCEIRO PVT ON V.ID = PVT.ID_VENDEDOR_TERCEIRO
+JOIN PRODUTO P ON PVT.ID_PRODUTO = P.ID
+WHERE V.ID = 1;
+
+-- Listar os pagamentos associados a um pedido
+SELECT PD.DATA_PAGAMENTO, SP.NOME AS STATUS_PAGAMENTO
+FROM PAGAMENTO PD
+JOIN ST_PAGAMENTO SP ON PD.ST_PAGAMENTO_ID = SP.ID
+WHERE PD.ID_PEDIDO = 2;
+
+-- Listar os produtos em estoque em um determinado local
+SELECT E.LOCAL, P.DESCRICAO, EP.QTD_DISPONIVEL
+FROM ESTOQUE E
+JOIN ESTOQUE_PRODUTO EP ON E.ID = EP.ID_ESTOQUE
+JOIN PRODUTO P ON EP.ID_PRODUTO = P.ID
+WHERE E.LOCAL = 'Depósito A';
