@@ -208,6 +208,14 @@ JOIN COLABORADOR c ON d.ID = c.ID_DEPARTAMENTO
 GROUP BY d.ID
 HAVING NUM_COLABORADORES > 3;
 
+-- Recuperações dos dados com junções entre tabelas para fornecer uma perspectiva mais complexa dos dados
+SELECT p.ID, c.NOME AS CLIENTE, o.DATA, o.TOTAL
+FROM PEDIDO p
+JOIN CLIENTE c ON p.ID_CLIENTE = c.ID
+JOIN PAGAMENTO pg ON p.ID = pg.ID_PEDIDO
+JOIN TIPO_PAGAMENTO tp ON pg.ID_TIPO_PAGAMENTO = tp.ID
+WHERE tp.DINHEIRO = 1;
+
 -- Recuperar todos os clientes
 SELECT c.ID, p.NOME AS CLIENTE
 FROM CLIENTE c
